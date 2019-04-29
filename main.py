@@ -18,10 +18,18 @@ import unicodedata
 
 class ResolveDQ:
     """
-    Documentation de la class en cours
+    La class permet de choisir la meilleure réponse à la question passée en paramètre.
+
+    Paramètres
+    ----------
+    question :  str, par défaut ""
+                C'est la question en format str
+    
+    r1, r2, r3, r4 : str, par défaut ""
+                Ce sont les réponses en format str
     """
 
-    def __init__(self, question, r1, r2, r3, r4):
+    def __init__(self, question="", r1="", r2="", r3="", r4=""):
         self.q = question
         self.r1 = r1[:-1].lower()
         self.r2 = r2[:-1].lower()
@@ -45,7 +53,8 @@ class ResolveDQ:
     
     def countstr(self,strpage):
         """
-        Documentation de la method en cours
+        Methode interne qui sert à compter le nbre de fois qu'apparaît les réponses
+        dans la page reçu en entrée
         """
 
         strpage = strpage.lower()
@@ -57,7 +66,15 @@ class ResolveDQ:
 
     def searchgoogle(self):
         """
-        Documentation de la method en cours
+        - On lance la recherche sur google
+        - La méthode va d'abord retirer tous les accents et autres dans le str de la question
+        - Ensuite va créer l'URL pour rechercher sur google.com
+        - Après elle va récupérer le code de la page web
+        - Elle va d'abord compter le nombre de fois qu'apparaît les réponses dans la partie
+            réponse de google.com, s'il n'y en a pas, va prendre le premier lien wikipedia et
+            va compter le nombre de fois qu'apparaît les réponses dans la page wikipedia,
+            S'il n'y a pas de lien wikipedia, va chercher sur toute la page le nbre de fois
+            qu'apparaît les réponses
         """
 
         self.q = str(unicodedata.normalize('NFKD', self.q).encode('ascii', 'ignore')) #On retire les accents
@@ -73,7 +90,7 @@ class ResolveDQ:
 
         if strpage.count('https://') == 0:
             if ResolveDQ.countstr(self, strpage) != 0:
-                self.state = 'dans le petit carré'
+                self.state = 'réponse google'
                 return
 
         for link in dom.find_all('a', href=True):
@@ -82,7 +99,7 @@ class ResolveDQ:
                 html = requests.get(strurl2)
                 dom = BeautifulSoup(html.text, 'lxml')
                 if ResolveDQ.countstr(self, str(dom.find_all())) != 0:
-                    self.state = 'dans le wikipedia'
+                    self.state = 'wikipedia'
                     return
         
         html = requests.get(strurl)
@@ -92,7 +109,14 @@ class ResolveDQ:
     
     def display(self):
         """
-        Documentation de la method en cours
+        La méthode va afficher les résultats après avoir fait la recherche
+        ------------
+        - Elle affiche la source de la recherche ("réponse google", "wikipedia", 
+            "page gloable")
+        - Elle va mettre en forme de pourcentage le nombre de fois que les réponses
+            apparaissent
+        - Va mettre en vert la réponse (prend en compte si la question est négative
+            ou positive)
         """
 
         print('state : {}'.format(self.state))
