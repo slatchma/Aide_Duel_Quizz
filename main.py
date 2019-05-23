@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*-coding:Utf-8 -*
 
 # ------------------------------------------------------
@@ -145,8 +145,22 @@ class ResolveDQ:
 # ------------------------------------------------------
 # Main
 
-#------------ OCR - OK ------------------
-# os.system('screencapture capture.png') # Fait un screenshot de l'ecran
+# ------------------------------------------------------
+# ------------ SCREEN ET ANALYSE DE L'IMAGE ------------
+# ------------------------------------------------------
+"""
+Ici on va extraire les informations importantes de l'application
+Duel Quizz. Pour cela on fait
+-   On fait une capture de l'écran du pc
+-   On va découper cette image en 5 parties (Question, Réponse 1,
+    Réponse 2, Réponse 3, Réponse 4)
+-   On met les images en négatif pour un meilleur résultat
+-   On utilise l'OCR Tesseract pour extraire les textes
+-   On ouvre les fichiers contenant les textes
+
+"""
+
+os.system('screencapture capture.png') # Fait un screenshot de l'ecran
 os.system('convert -crop 632x257+1900+355 capture.png q1.png') # Coupe l'image en differente partie
 os.system('convert -crop 282x52+1898+890 capture.png r1.png')
 os.system('convert -crop 282x52+2238+890 capture.png r2.png')
@@ -170,7 +184,13 @@ r2 = open('./R2.txt', 'r')
 r3 = open('./R3.txt', 'r')
 r4 = open('./R4.txt', 'r')
 dq = ResolveDQ(question.read(), r1.readline(), r2.readline(), r3.readline(), r4.readline())
-# ---------------------------------------------
+
+# ------------------------------------------------------
+# ----------------- RECHERCHE REPONSE ------------------
+# ------------------------------------------------------
+"""
+Ici on va chercher la bonne réponse en utilisant un objet
+"""
 
 #------------- Phase de test -----------
 # Il faut mettre en commentaire toute la partie OCR, fermeture de fichier et activer ici
@@ -185,8 +205,15 @@ dq = ResolveDQ(question.read(), r1.readline(), r2.readline(), r3.readline(), r4.
 dq.searchgoogle()
 dq.display()
 
-# ---------------------------------------------
-question.close() # On ferme les fichiers, on les places à la fin pour avoir la réponse le plus rapidement
+# ------------------------------------------------------
+# ----------------- FERMETURE FICHIER ------------------
+# ------------------------------------------------------
+"""
+Fermeture des fichiers ouverts. on place cette étape à la fin 
+pour avoir la réponse le plus rapidement
+"""
+
+question.close()
 r1.close()
 r2.close()
 r3.close()
