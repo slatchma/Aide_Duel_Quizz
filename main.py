@@ -85,7 +85,7 @@ class ResolveDQ:
         print(strurl)
         html = requests.get(strurl)
         dom = BeautifulSoup(html.text, 'lxml')
-        res = dom.findAll("div", {"class": "g"})[0]
+        res = dom.findAll("div", {"class": "jfp3ef"})[0]
         strpage = str(res)
 
         if strpage.count('https://') == 0:
