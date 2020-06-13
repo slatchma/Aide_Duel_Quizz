@@ -1,6 +1,3 @@
-#! /usr/bin/env python3
-# -*-coding:Utf-8 -*
-
 # ------------------------------------------------------
 # --------------------- IMPORT -------------------------
 # ------------------------------------------------------
@@ -19,6 +16,7 @@ import unicodedata
 class ResolveDQ:
     """
     La class permet de choisir la meilleure réponse à la question passée en paramètre.
+    PS : `res = dom.findAll("div", {"class": "kCrYT"})[0]` la class est à mettre à jour régulièrement vu que Google change son algo souvent
 
     Paramètres
     ----------
@@ -85,7 +83,7 @@ class ResolveDQ:
         print(strurl)
         html = requests.get(strurl)
         dom = BeautifulSoup(html.text, 'lxml')
-        res = dom.findAll("div", {"class": "jfp3ef"})[0]
+        res = dom.findAll("div", {"class": "kCrYT"})[0]
         strpage = str(res)
 
         if strpage.count('https://') == 0:
@@ -161,11 +159,11 @@ Duel Quizz. Pour cela on fait
 """
 
 os.system('screencapture capture.png') # Fait un screenshot de l'ecran
-os.system('convert -crop 632x257+1900+355 capture.png q1.png') # Coupe l'image en differente partie
-os.system('convert -crop 282x52+1898+890 capture.png r1.png')
-os.system('convert -crop 282x52+2238+890 capture.png r2.png')
-os.system('convert -crop 292x52+1898+1140 capture.png r3.png')
-os.system('convert -crop 282x52+2238+1140 capture.png r4.png')
+os.system('convert -crop 600x300+60+420 capture.png q1.png') # Coupe l'image en differente partie
+os.system('convert -crop 282x120+60+820 capture.png r1.png')
+os.system('convert -crop 282x120+370+820 capture.png r2.png')
+os.system('convert -crop 292x120+60+1040 capture.png r3.png')
+os.system('convert -crop 282x120+370+1040 capture.png r4.png')
 
 os.system('convert r1.png -channel RGB -negate r1.png')# met les images en negatives pour un meilleur resultat
 os.system('convert r2.png -channel RGB -negate r2.png')
@@ -194,7 +192,7 @@ Ici on va chercher la bonne réponse en utilisant un objet
 
 #------------- Phase de test -----------
 # Il faut mettre en commentaire toute la partie OCR, fermeture de fichier et activer ici
-# question = 'Principalement sur quel continent se déroule le jeu "Resident Evil 5"'
+# question = 'Principalement sur quel continent se déroule le jeu "Resident Evil 5\x0c"'
 # r1 = 'Afrique\n'
 # r2 = 'Asie\n'
 # r3 = 'Amérique du Nord\n'

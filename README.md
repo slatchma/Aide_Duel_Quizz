@@ -16,7 +16,7 @@ Si vous utilisez un autre téléphone ou un autre pc et que cela ne fonctionne p
 Utilisation
 ===
 
-On se place dans la configuration comme sur la photo (affichage de l'écran de l'iphone à droite, le programme Aide_Duel_Quizz à gauche)
+On se place dans la configuration comme sur la photo (affichage de l'écran de l'iphone à gauche, le programme Aide_Duel_Quizz à droite)
 
 Lorsque l'écran avec la question et les 4 réponses apparaissent,on lance le programme qui donnera la réponse en vert
 
@@ -31,3 +31,4 @@ Pour trouver la bonne réponse, Aide_Duel_Quizz va :
 Amélioration
 ===
 Le programme ne fonctionne pas à 100%, cependant il permet d'avoir un score d'environ 14/18. Il ne faut pas oublier que c'est une aide au cas où on ne sait pas la réponse. Son fonctionnement est basé sur le google home (qui fait ses recherches de la même manière). Mais il peut être amélioré en faisant une recherche sur tous les liens de la page
+(choisir plutôt les thèmes "art et culture", "au fil des siecles", "musique et hits", "sport", "XXIème siècle")
